@@ -566,7 +566,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x\n/usr/bin/xcrun -sdk macosx.internal clang++ -Wall -mmacosx-version-min=10.12 -arch x86_64 -std=c++11 \"${SRCROOT}/markgc.cpp\" -o \"${BUILT_PRODUCTS_DIR}/markgc\"\n\"${BUILT_PRODUCTS_DIR}/markgc\" \"${BUILT_PRODUCTS_DIR}/libobjc.A.dylib\"";
+			shellScript = "set -x\n/usr/bin/xcrun -sdk macosx clang++ -Wall -mmacosx-version-min=10.12 -arch x86_64 -std=c++11 \"${SRCROOT}/markgc.cpp\" -o \"${BUILT_PRODUCTS_DIR}/markgc\"\n\"${BUILT_PRODUCTS_DIR}/markgc\" \"${BUILT_PRODUCTS_DIR}/libobjc.A.dylib\"\n";
 		};
 		830F2AFA0D73BC5800392440 /* Run Script (symlink) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -649,6 +649,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = LIBC_NO_LIBCRASHREPORTERCLIENT;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(DSTROOT)/usr/include/**",
@@ -659,12 +660,13 @@
 				);
 				INSTALL_PATH = /usr/lib;
 				IS_ZIPPERED = YES;
-				ORDER_FILE = "$(SDKROOT)/AppleInternal/OrderFiles/libobjc.order";
+				ORDER_FILE = "$(SRCROOT)/libobjc.order";
 				"ORDER_FILE[sdk=iphonesimulator*]" = "";
 				OTHER_CFLAGS = (
 					"-fdollars-in-identifiers",
 					"$(OTHER_CFLAGS)",
 				);
+				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
 					"-lc++abi",
 					"-Wl,-segalign,0x4000",
@@ -688,29 +690,15 @@
 					"-Xlinker",
 					interposable.txt,
 				);
-				"OTHER_LDFLAGS[sdk=macosx*]" = (
-					"-lCrashReporterClient",
-					"-lc++abi",
-					"-Xlinker",
-					"-sectalign",
-					"-Xlinker",
-					__DATA,
-					"-Xlinker",
-					__objc_data,
-					"-Xlinker",
-					0x1000,
-					"-Xlinker",
-					"-interposable_list",
-					"-Xlinker",
-					interposable.txt,
-				);
-				OTHER_TAPI_FLAGS = "-exclude-public-header $(DSTROOT)/usr/include/objc/ObjectiveC.apinotes -exclude-public-header $(DSTROOT)/usr/include/objc/module.modulemap -Xparser -Wno-deprecated-declarations -Xparser -Wno-unavailable-declarations -Xparser -D_OBJC_PRIVATE_H_=1 -DOBJC_DECLARE_SYMBOLS=1";
+				"OTHER_LDFLAGS[sdk=macosx*]" = "";
+				OTHER_TAPI_FLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/objc;
 				PRODUCT_NAME = objc.A;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/include/objc;
 				SUPPORTS_TEXT_BASED_API = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
-				TAPI_VERIFY_MODE = Pedantic;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/libobjc.order $(SRCROOT)/include";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(SRCROOT)/libobjc.order $(SRCROOT)/include";
+				TAPI_VERIFY_MODE = ErrorsOnly;
 				UNEXPORTED_SYMBOLS_FILE = unexported_symbols;
 			};
 			name = Debug;
@@ -724,6 +712,7 @@
 				DYLIB_CURRENT_VERSION = 228;
 				EXECUTABLE_PREFIX = lib;
 				GCC_CW_ASM_SYNTAX = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(DSTROOT)/usr/include/**",
@@ -734,12 +723,13 @@
 				);
 				INSTALL_PATH = /usr/lib;
 				IS_ZIPPERED = YES;
-				ORDER_FILE = "$(SDKROOT)/AppleInternal/OrderFiles/libobjc.order";
+				ORDER_FILE = "$(SRCROOT)/libobjc.order";
 				"ORDER_FILE[sdk=iphonesimulator*]" = "";
 				OTHER_CFLAGS = (
 					"-fdollars-in-identifiers",
 					"$(OTHER_CFLAGS)",
 				);
+				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
 					"-lc++abi",
 					"-Wl,-segalign,0x4000",
@@ -763,29 +753,15 @@
 					"-Xlinker",
 					interposable.txt,
 				);
-				"OTHER_LDFLAGS[sdk=macosx*]" = (
-					"-lCrashReporterClient",
-					"-lc++abi",
-					"-Xlinker",
-					"-sectalign",
-					"-Xlinker",
-					__DATA,
-					"-Xlinker",
-					__objc_data,
-					"-Xlinker",
-					0x1000,
-					"-Xlinker",
-					"-interposable_list",
-					"-Xlinker",
-					interposable.txt,
-				);
-				OTHER_TAPI_FLAGS = "-exclude-public-header $(DSTROOT)/usr/include/objc/ObjectiveC.apinotes -exclude-public-header $(DSTROOT)/usr/include/objc/module.modulemap -Xparser -Wno-deprecated-declarations -Xparser -Wno-unavailable-declarations -Xparser -D_OBJC_PRIVATE_H_=1 -DOBJC_DECLARE_SYMBOLS=1";
+				"OTHER_LDFLAGS[sdk=macosx*]" = "";
+				OTHER_TAPI_FLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/objc;
 				PRODUCT_NAME = objc.A;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/include/objc;
 				SUPPORTS_TEXT_BASED_API = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
-				TAPI_VERIFY_MODE = Pedantic;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/libobjc.order $(SRCROOT)/include";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(SRCROOT)/libobjc.order $(SRCROOT)/include";
+				TAPI_VERIFY_MODE = ErrorsOnly;
 				UNEXPORTED_SYMBOLS_FILE = unexported_symbols;
 				WARNING_CFLAGS = (
 					"$(inherited)",
